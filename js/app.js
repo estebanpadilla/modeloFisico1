@@ -1,5 +1,3 @@
-
-
 // js/app.js
 // Punto de entrada principal: conecta UI, física y render.
 
