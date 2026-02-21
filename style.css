@@ -138,3 +138,58 @@ code {
     padding: 2px 6px;
     border-radius: 6px;
 }
+
+
+/* =============================
+   Responsive Improvements
+   ============================= */
+
+/* Make layout responsive on smaller screens */
+@media (max-width: 900px) {
+    .wrap {
+        grid-template-columns: 1fr;
+    }
+
+    canvas {
+        height: 60vh;
+        /* shorter canvas on tablets */
+    }
+
+    .overlay {
+        max-width: 90%;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 16px;
+    }
+
+    .panel {
+        padding: 10px;
+    }
+
+    .btns {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    canvas {
+        height: 55vh;
+        /* better fit on mobile */
+    }
+
+    .overlay {
+        left: 8px;
+        top: 8px;
+        padding: 8px;
+    }
+}

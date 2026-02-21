@@ -225,12 +225,112 @@ export function createRenderer(ui) {
     }
     ctx.stroke();
 
-    // ===== Proyectil =====
+    // ===== Proyectil (Cohete 🚀) =====
     const projP = toScreen(state.pos.x, Math.max(0, state.pos.y));
-    ctx.fillStyle = "rgba(255,255,255,0.95)";
+
+    // Ángulo del cohete según dirección de la velocidad.
+    // Ojo: en pantalla el eje Y está invertido, por eso usamos -vy.
+    const angle = Math.atan2(-state.vel.y, state.vel.x);
+
+    ctx.save();
+    ctx.translate(projP.x, projP.y);
+    ctx.rotate(angle);
+
+    // Dimensiones (aprox. el doble de la bolita original)
+    const bodyL = 28;  // largo del cuerpo
+    const bodyH = 10;  // alto del cuerpo
+    const noseL = 10;  // largo de la punta
+    const tailL = 8;   // largo hacia atrás
+
+    // --- Cuerpo (cápsula / rectángulo redondeado) ---
+    ctx.fillStyle = "rgba(233,238,245,0.95)";
+    const r = bodyH / 2;
+    const x0 = -tailL;
+    const yBody0 = -bodyH / 2;
+    const w0 = bodyL;
+    const h0 = bodyH;
+
     ctx.beginPath();
-    ctx.arc(projP.x, projP.y, 5, 0, Math.PI * 2);
+    // esquina superior izquierda (redondeo)
+    ctx.moveTo(x0 + r, yBody0);
+    ctx.lineTo(x0 + w0 - r, yBody0);
+    ctx.arc(x0 + w0 - r, yBody0 + r, r, -Math.PI / 2, 0);
+    ctx.lineTo(x0 + w0, yBody0 + h0 - r);
+    ctx.arc(x0 + w0 - r, yBody0 + h0 - r, r, 0, Math.PI / 2);
+    ctx.lineTo(x0 + r, yBody0 + h0);
+    ctx.arc(x0 + r, yBody0 + h0 - r, r, Math.PI / 2, Math.PI);
+    ctx.lineTo(x0, yBody0 + r);
+    ctx.arc(x0 + r, yBody0 + r, r, Math.PI, (3 * Math.PI) / 2);
+    ctx.closePath();
     ctx.fill();
+
+    // --- Punta (cono) ---
+    ctx.fillStyle = "rgba(233,238,245,0.95)";
+    ctx.beginPath();
+    ctx.moveTo(x0 + w0, 0);
+    ctx.lineTo(x0 + w0 + noseL, 0);
+    ctx.lineTo(x0 + w0, -bodyH / 2);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(x0 + w0, 0);
+    ctx.lineTo(x0 + w0 + noseL, 0);
+    ctx.lineTo(x0 + w0, bodyH / 2);
+    ctx.closePath();
+    ctx.fill();
+
+    // --- Aletas (fins) ---
+    ctx.fillStyle = "rgba(31,111,235,0.95)";
+    // aleta superior
+    ctx.beginPath();
+    ctx.moveTo(x0 + 6, -bodyH / 2);
+    ctx.lineTo(x0 + 14, -bodyH / 2);
+    ctx.lineTo(x0 + 10, -bodyH / 2 - 7);
+    ctx.closePath();
+    ctx.fill();
+    // aleta inferior
+    ctx.beginPath();
+    ctx.moveTo(x0 + 6, bodyH / 2);
+    ctx.lineTo(x0 + 14, bodyH / 2);
+    ctx.lineTo(x0 + 10, bodyH / 2 + 7);
+    ctx.closePath();
+    ctx.fill();
+
+    // --- Ventana ---
+    ctx.fillStyle = "rgba(31,111,235,0.95)";
+    ctx.beginPath();
+    ctx.arc(x0 + 16, 0, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.beginPath();
+    ctx.arc(x0 + 16 - 1.2, -1.0, 1.2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // --- Fuego (solo mientras está en movimiento) ---
+    if (state.isPlaying) {
+      // Llama principal
+      ctx.fillStyle = "rgba(248,113,113,0.95)";
+      ctx.beginPath();
+      ctx.moveTo(x0 - 2, 0);
+      ctx.lineTo(x0 - 12, -4);
+      ctx.lineTo(x0 - 18, 0);
+      ctx.lineTo(x0 - 12, 4);
+      ctx.closePath();
+      ctx.fill();
+
+      // Llama interna (más clara)
+      ctx.fillStyle = "rgba(251,191,36,0.95)";
+      ctx.beginPath();
+      ctx.moveTo(x0 - 2, 0);
+      ctx.lineTo(x0 - 10, -2.5);
+      ctx.lineTo(x0 - 14, 0);
+      ctx.lineTo(x0 - 10, 2.5);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    ctx.restore();
 
     // ===== Marcador de alcance =====
     const pr = toScreen(a.R, 0);
