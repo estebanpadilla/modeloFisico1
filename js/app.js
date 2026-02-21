@@ -27,7 +27,7 @@ const state = {
 const target = {
     x: 20,
     y: 5,
-    r: 1.2,
+    r: 2.5, // radio aumentado
 };
 
 let hit = false;
