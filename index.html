@@ -4,46 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Movimiento Parabólico (Proyectiles) - Canvas</title>
-  <style>
-    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
-    body { margin: 0; background:#0b0f14; color:#e9eef5; }
-    header { padding: 16px 18px; border-bottom: 1px solid #1d2633; }
-    h1 { font-size: 18px; margin: 0 0 6px; }
-    .wrap { display: grid; grid-template-columns: 360px 1fr; gap: 14px; padding: 14px; }
-    .panel { background:#101826; border:1px solid #1d2633; border-radius: 12px; padding: 12px; }
-    label { display:block; font-size: 12px; opacity: .9; margin-top: 10px; }
-    input[type="range"] { width: 100%; }
-    .row { display:flex; gap:10px; align-items:center; }
-    .row > div { flex:1; }
-    .btns { display:flex; gap:10px; margin-top: 12px; }
-    button {
-      background:#1f6feb; border:0; color:white; padding:10px 12px; border-radius:10px;
-      cursor:pointer; font-weight:600;
-    }
-    button.secondary { background:#22314a; }
-    .stat { font-size: 13px; line-height: 1.4; margin-top: 10px; }
-    .canvasWrap { position: relative; }
-    canvas { width: 100%; height: calc(100vh - 92px); background:#070a0f; border-radius: 12px; border:1px solid #1d2633; display:block; }
-    .overlay {
-      position: absolute;
-      left: 14px;
-      top: 14px;
-      background: rgba(16,24,38,0.72);
-      border: 1px solid rgba(29,38,51,0.9);
-      backdrop-filter: blur(6px);
-      border-radius: 12px;
-      padding: 10px 10px;
-      font-size: 12px;
-      line-height: 1.35;
-      max-width: 420px;
-    }
-    .overlay b { font-weight: 700; }
-    .overlay .ok { color: #6ee7b7; }
-    .overlay .warn { color: #fbbf24; }
-    .overlay .bad { color: #f87171; }
-    .hint { font-size: 12px; opacity:.8; margin-top: 8px; }
-    code { background:#0b1220; padding:2px 6px; border-radius:6px; }
-  </style>
+  <link rel="stylesheet" href="style.css">  
 </head>
 <body>
   <header>
@@ -92,6 +53,26 @@
         Para la exposición: comparen esta simulación numérica (por frames) con el modelo analítico.
         Es lo mismo que hace un motor de física: integra movimiento con <code>Δt</code>.
       </div>
+
+      <div>
+        <br>
+        <b>Trabajo:</b>
+        <p class="p-custom">Modelo Físico 1</p>
+        <br>
+        <b>Grupo 1</b>
+        <p class="p-custom">Alexander Abarca Armento</p>
+        <p class="p-custom">Noelia Alvarado Garita</p>
+        <p class="p-custom">Esteban Padilla Sanchez</p>
+        <p class="p-custom">Jorge Chavarria</p>
+        <p class="p-custom">Adrian Quiros</p>
+        <br>
+        <b>Curso:</b> 
+        <p class="p-custom">Física 1</p>
+        <br>
+        <b>Docente:</b> 
+        <p class="p-custom">Edwin Quesada</p>
+      </div>
+      
     </section>
 
     <section class="canvasWrap">
